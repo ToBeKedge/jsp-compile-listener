@@ -11,7 +11,7 @@
 
 	<description>Listener web to compile the JSP for startup (all versions of tomcat 9 and lower)</description>
 
-	<url>https://github.com/tobekedge/jsp-compile-listener</url>
+	<url>https://github.com/ToBeKedge/jsp-compile-listener</url>
 
 	<licenses>
 		<license>
@@ -23,14 +23,14 @@
 	<developers>
 		<developer>
 			<name>Marco Semiao</name>
-			<organizationUrl>https://github.com/tobekedge/jsp-compile-listener</organizationUrl>
+			<organizationUrl>https://github.com/ToBeKedge/jsp-compile-listener</organizationUrl>
 		</developer>
 	</developers>
 
 	<scm>
-		<connection>scm:git:git@github.com:tobekedge/jsp-compile-listener.git</connection>
-		<developerConnection>scm:git:git@github.com:tobekedge/jsp-compile-listener.git</developerConnection>
-		<url>git@github.com:tobekedge/jsp-compile-listener.git</url>
+		<connection>scm:git:git@github.com:ToBeKedge/jsp-compile-listener.git</connection>
+		<developerConnection>scm:git:git@github.com:ToBeKedge/jsp-compile-listener.git</developerConnection>
+		<url>git@github.com:ToBeKedge/jsp-compile-listener.git</url>
 		<tag>HEAD</tag>
 	</scm>
 
