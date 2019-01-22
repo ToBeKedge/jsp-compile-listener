@@ -28,9 +28,9 @@
 	</developers>
 
 	<scm>
-		<connection>scm:git:git@github.com:ToBeKedge/jsp-compile-listener.git</connection>
-		<developerConnection>scm:git:git@github.com:ToBeKedge/jsp-compile-listener.git</developerConnection>
-		<url>git@github.com:ToBeKedge/jsp-compile-listener.git</url>
+		<connection>scm:git:https://github.com/ToBeKedge/jsp-compile-listener.git</connection>
+		<developerConnection>scm:git:https://github.com/ToBeKedge/jsp-compile-listener.git</developerConnection>
+		<url>https://github.com/ToBeKedge/jsp-compile-listener.git</url>
 		<tag>HEAD</tag>
 	</scm>
 
