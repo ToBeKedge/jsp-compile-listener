@@ -28,7 +28,6 @@ import java.util.concurrent.ThreadFactory;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -46,6 +45,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class JspCompileListener implements ServletContextListener {
 
+	@Override
 	public void contextInitialized(final ServletContextEvent servletContextEvent) {
 
 		ServletContext servletContext = servletContextEvent.getServletContext();
@@ -75,7 +75,8 @@ public class JspCompileListener implements ServletContextListener {
 
 	}
 
+	@Override
 	public void contextDestroyed(final ServletContextEvent sce) {
-
+		// Do nothing here
 	}
 }
