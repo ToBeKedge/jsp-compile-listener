@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.github.marcosemiao.tomcat.listener</groupId>
+	<groupId>com.github.tobekedge.tomcat.listener</groupId>
 	<artifactId>jsp-compile-listener</artifactId>
 	<version>1.0.2-SNAPSHOT</version>
 
@@ -9,9 +9,9 @@
 
 	<name>Tomcat Listener : Jsp Compile Listener</name>
 
-	<description>Listener web to compile the JSP for startup (all versions before tomcat 8)</description>
+	<description>Listener web to compile the JSP for startup (all versions of tomcat 9 and lower)</description>
 
-	<url>https://github.com/marcosemiao/jsp-compile-listener</url>
+	<url>https://github.com/tobekedge/jsp-compile-listener</url>
 
 	<licenses>
 		<license>
@@ -23,15 +23,14 @@
 	<developers>
 		<developer>
 			<name>Marco Semiao</name>
-			<url>https://marcosemiao4j.wordpress.com</url>
-			<organizationUrl>https://github.com/marcosemiao/jsp-compile-listener</organizationUrl>
+			<organizationUrl>https://github.com/tobekedge/jsp-compile-listener</organizationUrl>
 		</developer>
 	</developers>
 
 	<scm>
-		<connection>scm:git:git@github.com:marcosemiao/jsp-compile-listener.git</connection>
-		<developerConnection>scm:git:git@github.com:marcosemiao/jsp-compile-listener.git</developerConnection>
-		<url>git@github.com:marcosemiao/jsp-compile-listener.git</url>
+		<connection>scm:git:git@github.com:tobekedge/jsp-compile-listener.git</connection>
+		<developerConnection>scm:git:git@github.com:tobekedge/jsp-compile-listener.git</developerConnection>
+		<url>git@github.com:tobekedge/jsp-compile-listener.git</url>
 		<tag>HEAD</tag>
 	</scm>
 
@@ -70,6 +69,12 @@
 			<artifactId>tomcat-catalina</artifactId>
 			<scope>provided</scope>
 			<version>[7.0.0,9.0.10]</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.25</version>
 		</dependency>
 	</dependencies>
 

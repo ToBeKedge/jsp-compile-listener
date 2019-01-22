@@ -7,7 +7,12 @@ import java.util.concurrent.Future;
 
 import javax.servlet.ServletContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class JspFinishTaskRunnable implements Runnable {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(JspFinishTaskRunnable.class);
 
 	private final ServletContext servletContext;
 
@@ -40,7 +45,7 @@ public class JspFinishTaskRunnable implements Runnable {
 
 			final String contextPath = servletContext.getContextPath();
 
-			System.out.println(contextPath + " : " + compiles + " successful compilation on " + total);
+			LOGGER.debug("{} : {} successful compilation on {}", contextPath, compiles, total);
 		}
 	}
 }
