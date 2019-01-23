@@ -4,6 +4,7 @@ import java.lang.management.ManagementFactory;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.Arrays;
 
 import javax.management.MBeanServer;
 import javax.management.MalformedObjectNameException;
@@ -11,8 +12,14 @@ import javax.management.ObjectName;
 import javax.servlet.ServletContext;
 
 import org.apache.catalina.LifecycleState;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ServletContextDecorator implements InvocationHandler {
+
+	private static final String DEFAULT_ENGINE_NAME = "Catalina";
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(ServletContextDecorator.class);
 
 	private final ServletContext servletContext;
 	private final MBeanServer mbs;
@@ -32,7 +39,7 @@ public class ServletContextDecorator implements InvocationHandler {
 		final String nameMethod = method.getName();
 
 		if ("getRequestDispatcher".equals(nameMethod)) {
-			while (!this.state.equals(LifecycleState.STARTED)) {
+			while (!LifecycleState.STARTED.equals(this.state)) {
 				this.state = receiveState();
 				Thread.sleep(1000L);
 			}
@@ -45,6 +52,7 @@ public class ServletContextDecorator implements InvocationHandler {
 		try {
 			final String attribute = (String) mbs.getAttribute(name, "stateName");
 			final LifecycleState state = LifecycleState.valueOf(attribute);
+			LOGGER.debug("State: {}", state);
 			return state;
 		} catch (final Throwable e) {
 			// NO-OP
@@ -56,8 +64,8 @@ public class ServletContextDecorator implements InvocationHandler {
 	public static ServletContext decorateServletContext(final ServletContext servletContext) {
 		final String serverInfo = servletContext.getServerInfo();
 
-		final int start = serverInfo.indexOf("/");
-		final int end = serverInfo.indexOf(".", start);
+		final int start = serverInfo.indexOf('/');
+		final int end = serverInfo.indexOf('.', start);
 
 		final String versionString = serverInfo.substring(start + 1, end);
 
@@ -65,8 +73,17 @@ public class ServletContextDecorator implements InvocationHandler {
 
 		if (version > 7) {
 			try {
+
+				String domain = getCurrentDomain(servletContext);
+
 				MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-				ObjectName name = new ObjectName("Catalina:type=Server");
+
+				if (!DEFAULT_ENGINE_NAME.equals(domain) && !Arrays.asList(mbs.getDomains()).contains(domain)) {
+					domain = DEFAULT_ENGINE_NAME;
+				}
+
+				LOGGER.debug("Domain: {}", domain);
+				ObjectName name = new ObjectName(domain + ":type=Server");
 
 				final InvocationHandler handler = new ServletContextDecorator(servletContext, mbs, name);
 
@@ -79,5 +96,14 @@ public class ServletContextDecorator implements InvocationHandler {
 			}
 		}
 		return servletContext;
+	}
+
+	private static String getCurrentDomain(final ServletContext servletContext) {
+		final String virtualServerName = servletContext.getVirtualServerName();
+		int indexOf = virtualServerName.indexOf('/');
+		if (indexOf >= 0) {
+			return virtualServerName.substring(0, indexOf);
+		}
+		return DEFAULT_ENGINE_NAME;
 	}
 }

@@ -2,7 +2,6 @@ package fr.ms.tomcat.listener.jsp;
 
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 import javax.servlet.ServletContext;
@@ -36,10 +35,12 @@ public class JspFinishTaskRunnable implements Runnable {
 					if (success) {
 						compiles++;
 					}
-				} catch (final InterruptedException e) {
-					// NO-OP
-				} catch (final ExecutionException e) {
-					// NO-OP
+				} catch (final Exception e) {
+					if (LOGGER.isDebugEnabled()) {
+						LOGGER.debug("Failed to get future", e);
+					} else {
+						LOGGER.error("Unable to get future: {}", e.getMessage());
+					}
 				}
 			}
 

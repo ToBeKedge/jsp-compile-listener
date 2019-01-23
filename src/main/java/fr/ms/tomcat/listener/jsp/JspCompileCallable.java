@@ -23,6 +23,9 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Permet d'avoir une instance par ressource pour une invocation de celle-ci.
  *
@@ -33,6 +36,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  */
 class JspCompileCallable implements Callable<Boolean> {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(JspCompileCallable.class);
 
 	private final ServletContext servletContext;
 	private final String path;
@@ -70,14 +75,15 @@ class JspCompileCallable implements Callable<Boolean> {
 			return false;
 		}
 
-		final String contextPath = servletContext.getContextPath();
+		final String fullPath = servletContext.getContextPath() + path;
 		try {
 
-			System.out.println("Compiling : " + contextPath + path);
+			LOGGER.debug("Compiling : {}", fullPath);
 			requestDispatcher.include(request, response);
 			return true;
 		} catch (final Exception e) {
-			System.out.println("Not Compiling : " + contextPath + path + " - " + e.getMessage());
+			LOGGER.error("Not Compiling : {} - {}", fullPath, e.getMessage());
+			LOGGER.debug("Not Compiling : {}", fullPath, e);
 			return false;
 		}
 	}
