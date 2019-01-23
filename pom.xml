@@ -23,6 +23,11 @@
 	<developers>
 		<developer>
 			<name>Marco Semiao</name>
+			<url>https://marcosemiao4j.wordpress.com</url>
+			<organizationUrl>https://github.com/marcosemiao/jsp-compile-listener</organizationUrl>
+		</developer>
+		<developer>
+			<name>Cyril MICOUD</name>
 			<organizationUrl>https://github.com/ToBeKedge/jsp-compile-listener</organizationUrl>
 		</developer>
 	</developers>
